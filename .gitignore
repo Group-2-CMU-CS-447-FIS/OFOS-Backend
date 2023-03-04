@@ -1,0 +1,9 @@
+# folder structure
+/.yarn
+/node_modules
+/.vscode
+
+# dotenv environment variables file
+.env
+.env.local
+.env.development
