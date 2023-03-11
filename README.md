@@ -28,3 +28,9 @@ to start the server.
 
 - Create route in folder [routes](routes)
 - Create controller in folder [controllers](controllers)
+
+### List of Routes
+
+| Route      | HTTP | Description         |
+| ---------- | ---- | ------------------- |
+| /api/users | POST | Register a new user |
