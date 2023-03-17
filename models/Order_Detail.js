@@ -5,12 +5,12 @@ class OrderDetail extends Model {}
 
 OrderDetail.init(
     {
-        order_id: {
-            type: DataTypes.UUID,
+        orderId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        food_id: {
-            type: DataTypes.UUID,
+        foodId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         quantity: {
@@ -32,7 +32,7 @@ OrderDetail.init(
     },
     {
         sequelize,
-        modelName: "order-detail",
+        modelName: "order_detail",
     }
 );
 

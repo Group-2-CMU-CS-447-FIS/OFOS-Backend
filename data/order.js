@@ -1,26 +1,17 @@
 const DummyOrder = [
     {
-        id: "1",
-        userId: "1",
-        items: [
-            {
-                id: "1",
-                name: "Pepperoni Pizza",
-                qty: 2,
-                price: 40,
-            },
-            {
-                id: "3",
-                name: "Coca Cola",
-                qty: 1,
-                price: 5,
-            },
-        ],
+        userId: 1,
         address: "somewhere else",
-        isPaid: true,
-        isDelivered: false,
-        paidAt: "someday",
-        deliveredAt: "",
+        status: "Not Paid",
+        total: 123,
+        payment_method: "Mastercard",
+    },
+    {
+        userId: 1,
+        address: "somewhere else",
+        status: "Paid & Delivered",
+        total: 123,
+        payment_method: "Mastercard",
     },
 ];
 

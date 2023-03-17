@@ -4,7 +4,7 @@ const sequelize = new Sequelize("food_ordering_system", "root", "123456", {
     host: "localhost",
     dialect: "mysql",
     query: {
-        raw: true,
+        nest: true,
     },
 });
 

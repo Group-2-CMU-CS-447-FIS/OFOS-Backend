@@ -5,8 +5,8 @@ class Order extends Model {}
 
 Order.init(
     {
-        user_id: {
-            type: DataTypes.UUID,
+        userId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         status: {

@@ -9,10 +9,6 @@ Food.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        category: {
-            type: DataTypes.UUID,
-            allowNull: false,
-        },
         description: {
             type: DataTypes.TEXT,
             allowNull: false,
