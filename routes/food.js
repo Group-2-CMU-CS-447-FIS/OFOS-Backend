@@ -1,14 +1,16 @@
 import express from "express";
 import {
-    getAllProducts,
-    getProductByID,
-    getProductByCategory,
+    getAllFood,
+    getFoodByID,
+    createFood,
+    updateFood,
+    deleteFood,
 } from "../controllers/foodController.js";
 
 const route = express.Router();
 
-route.get("/", getAllProducts);
-route.get("/:id", getProductByID);
-route.get("/:category", getProductByCategory);
+route.get("/", getAllFood);
+route.get("/:id", getFoodByID);
+//route.get("/:category", getFoodByCategory);
 
 export default route;

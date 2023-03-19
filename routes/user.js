@@ -1,11 +1,21 @@
 import express from "express";
+import {
+    deleteUser,
+    getAllUsers,
+    getUserProfile,
+    login,
+    register,
+    updateUserProfile,
+} from "../controllers/userController.js";
 
-const route = express.Router();
+const router = express.Router();
 
-route.get("/", (req, res) => {
-    res.json({
-        message: "OK",
-    });
-});
+router.route("/").post(register).get(getAllUsers);
+router
+    .route("/:id")
+    .get(getUserProfile)
+    .patch(updateUserProfile)
+    .delete(deleteUser);
+router.post("/login", login);
 
-export default route;
+export default router;

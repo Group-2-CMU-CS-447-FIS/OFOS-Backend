@@ -9,18 +9,18 @@ function addRelationship() {
     User.hasMany(Order);
     //food n - n order
     Order.belongsToMany(Food, {
-        through: "order_details",
+        through: "Order_Details",
     });
     Food.belongsToMany(Order, {
-        through: "order_details",
+        through: "Order_Details",
     });
 
     //food n - n category
     Food.belongsToMany(Category, {
-        through: "food_categories",
+        through: "Food_Categories",
     });
     Category.belongsToMany(Food, {
-        through: "food_categories",
+        through: "Food_Categories",
     });
 }
 

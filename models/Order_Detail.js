@@ -32,7 +32,7 @@ OrderDetail.init(
     },
     {
         sequelize,
-        modelName: "order_detail",
+        modelName: "order_Detail",
     }
 );
 

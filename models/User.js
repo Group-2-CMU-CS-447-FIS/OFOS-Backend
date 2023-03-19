@@ -1,5 +1,6 @@
 import {Model, DataTypes} from "sequelize";
 import sequelize from "../config/db.js";
+import bcryp, {genSalt} from "bcrypt";
 
 class User extends Model {}
 
@@ -30,7 +31,17 @@ User.init(
             defaultValue: "user",
         },
     },
-    {sequelize, modelName: "user"}
+    {
+        sequelize,
+        modelName: "user",
+        hooks: {
+            beforeSave: async (user, option) => {
+                const salt = await genSalt();
+                const hash = await bcryp.hash(user.password, salt);
+                user.password = hash;
+            },
+        },
+    }
 );
 
 export default User;

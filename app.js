@@ -6,7 +6,9 @@ import dotenv from "dotenv";
 import food from "./routes/food.js";
 import order from "./routes/order.js";
 import user from "./routes/user.js";
+import category from "./routes/category.js";
 import {notFound, errorHandler} from "./middlewares/error.js";
+import addRelationship from "./models/relationship/relationship.js";
 
 dotenv.config();
 
@@ -20,9 +22,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
+addRelationship();
+
 app.use("/api/food", food);
 app.use("/api/users", user);
 app.use("/api/orders", order);
+app.use("/api/category", category);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,43 +1,51 @@
-import DummyFood from "../data/food.js";
+import asyncHandler from "express-async-handler";
+import Food from "../models/Food.js";
+import Category from "../models/Category.js";
 
-const getAllProducts = (req, res) => {
-    res.json(DummyFood);
-};
+const getAllFood = asyncHandler(async (req, res) => {
+    const food = await Food.findAll({
+        include: {
+            model: Category,
+            attributes: ["id", "name"],
+            through: {
+                attributes: [],
+            },
+        },
+    });
+    res.json(food);
+});
 
-const getProductByID = (req, res) => {
-    const product = DummyFood.find((food) => food.id === req.params.id);
+const getFoodByID = asyncHandler(async (req, res) => {
+    const food = await Food.findByPk(req.params.id, {
+        include: {
+            model: Category,
+            through: {
+                attributes: [],
+            },
+        },
+    });
 
-    res.json(product);
-};
+    if (food) res.json(food);
+    else throw new Error("Food not found");
+});
 
-const getProductByCategory = (req, res) => {
+const getFoodByCategory = (req, res) => {
     res.json({
         message: "get products by Category",
     });
 };
 
-const createProduct = (req, res) => {
+//admin only
+const createFood = (req, res) => {
     res.json({product: "product created"});
 };
 
-const updateProduct = (req, res) => {
+const updateFood = (req, res) => {
     res.json({product: "product updated"});
 };
 
-const deleteProduct = (req, res) => {
+const deleteFood = (req, res) => {
     res.json({product: "product deleted"});
 };
 
-const createReview = (req, res) => {
-    res.json({review: "reviewed"});
-};
-
-export {
-    getAllProducts,
-    getProductByID,
-    getProductByCategory,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    createReview,
-};
+export {getAllFood, getFoodByID, createFood, updateFood, deleteFood};

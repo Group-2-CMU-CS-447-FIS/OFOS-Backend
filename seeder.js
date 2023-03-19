@@ -13,17 +13,17 @@ import DummyCategory from "./data/category.js";
 import FoodCategory from "./models/Food_Category.js";
 import food_category from "./data/food_category.js";
 
-dotenv.config();
-
 async function importData() {
+    await sequelize
+        .sync({force: false})
+        .catch((error) => console.log(error.message));
     addRelationship();
-    await sequelize.sync({force: true});
 
-    await User.bulkCreate(DummyUser);
-    await Food.bulkCreate(DummyFood);
-    await Order.bulkCreate(DummyOrder);
-    await Category.bulkCreate(DummyCategory);
-    await FoodCategory.bulkCreate(food_category);
+    //await User.bulkCreate(DummyUser);
+    //await Food.bulkCreate(DummyFood);
+    //await Category.bulkCreate(DummyCategory);
+    //await Order.bulkCreate(DummyOrder);
+    await FoodCategory.beforeBulkCreate(food_category);
 
     process.exit(1);
 }
