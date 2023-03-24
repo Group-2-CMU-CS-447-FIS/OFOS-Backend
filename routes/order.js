@@ -1,11 +1,22 @@
 import express from "express";
+import {
+    createOrder,
+    getAllOrders,
+    getOrderById,
+    getUserOrders,
+    updateOrder,
+    updateOrderStatus,
+    updateOrderToPaid,
+} from "../controllers/orderController.js";
 
-const route = express.Router();
+const router = express.Router();
 
-route.get("/", (req, res) => {
-    res.json({
-        message: "OK",
-    });
-});
+router.route("/").get(getAllOrders).post(createOrder);
 
-export default route;
+router.route("/user/:id").get(getUserOrders);
+router.route("/:id").get(getOrderById).patch(updateOrder);
+
+router.patch("/paid/:id", updateOrderToPaid);
+router.patch("/status/:id", updateOrderStatus);
+
+export default router;

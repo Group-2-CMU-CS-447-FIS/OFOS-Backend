@@ -30,7 +30,11 @@ Order.init(
         },
         note: {
             type: DataTypes.TEXT,
-            defaultValue: null,
+            defaultValue: "none",
+        },
+        phone: {
+            type: DataTypes.STRING,
+            defaultValue: "xxx",
         },
     },
     {

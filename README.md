@@ -55,13 +55,27 @@ to start the server.
 
 #### Food
 
-| Route        | HTTP | Description    |
-| ------------ | ---- | -------------- |
-| /api/food    | GET  | Get all food   |
-| /api/food:id | GET  | Get food by ID |
+| Route        | HTTP   | Description    |
+| ------------ | ------ | -------------- |
+| /api/food    | GET    | Get all food   |
+| /api/food:id | GET    | Get food by ID |
+| /api/food:id | PATCH  | Update food    |
+| /api/food:id | DELETE | Delete food    |
+
+#### Order
+
+| Route                 | HTTP  | Description                 |
+| --------------------- | ----- | --------------------------- |
+| /api/orders           | GET   | Get all orders              |
+| /api/orders:id        | GET   | Get order by ID             |
+| /api/orders/user:id   | GET   | Get all orders by user      |
+| /api/orders:id        | PATCH | Update order                |
+| /api/orders/status:id | PATCH | Update order status [ADMIN] |
+| /api/orders/paid:id   | PATCH | Update order status \*      |
 
 > **Note:**
-> Mấy cái của admin em chưa viết middleware nên để tạm, sau viết nốt sau
+> Middle kiểm tra danh tính em vẫn chưa viết (TODO)
+> (\*) Update order khi user thanh toan' online
 
 ### Import Data
 

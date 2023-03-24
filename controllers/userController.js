@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import genToken from "../utils/genToken.js";
 import asyncHandler from "express-async-handler";
+import Order from "../models/Order.js";
 
 const register = asyncHandler(async (req, res) => {
     const {fullName, email, password, phone} = req.body;
@@ -56,6 +57,10 @@ const getUserProfile = asyncHandler(async (req, res) => {
     const id = req.params.id;
     const user = await User.findByPk(id, {
         attributes: ["id", "email", "full_name", "phone", "role"],
+        include: {
+            model: Order,
+            attributes: ["id", "status", "address", "phone", "total"],
+        },
     });
     if (user) res.json(user);
     else throw new Error("User not found");
@@ -66,17 +71,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const {full_name, email, phone, password} = req.body;
     const user = await User.findByPk(id);
     if (user) {
-        const newName = full_name || user.full_name;
-        const newEmail = email || user.email;
-        const newPhone = phone || user.phone;
-        const newPassword = password || "";
+        user.full_name = full_name || user.full_name;
+        user.email = email || user.email;
+        user.phone = phone || user.phone;
 
-        user.full_name = newName;
-        user.email = newEmail;
-        user.phone = newPhone;
-
-        if (newPassword) {
-            user.password = newPassword;
+        if (password) {
+            user.password = password;
         }
 
         const updateUser = await user.save();
@@ -93,19 +93,13 @@ const updateUser = asyncHandler(async (req, res) => {
     const {full_name, email, phone, password, role} = req.body;
     const user = await User.findByPk(id);
     if (user) {
-        const newName = full_name || user.full_name;
-        const newEmail = email || user.email;
-        const newPhone = phone || user.phone;
-        const newPassword = password || "";
-        const newRole = role || user.role;
+        user.full_name = full_name || user.full_name;
+        user.email = email || user.email;
+        user.phone = phone || user.phone;
+        user.role = role || user.role;
 
-        user.full_name = newName;
-        user.email = newEmail;
-        user.phone = newPhone;
-        user.role = newRole;
-
-        if (newPassword) {
-            user.password = newPassword;
+        if (password) {
+            user.password = password;
         }
 
         const updateUser = await user.save();
@@ -131,6 +125,14 @@ const deleteUser = asyncHandler(async (req, res) => {
     });
     if (user) {
         user.destroy();
+
+        await Order.destroy({
+            where: {
+                userId: user.id,
+            },
+        });
+
+        res.json({message: "User deleted"});
     } else throw new Error("User not found");
 });
 

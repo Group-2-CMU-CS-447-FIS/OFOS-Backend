@@ -9,8 +9,7 @@ import {
 
 const route = express.Router();
 
-route.get("/", getAllFood);
-route.get("/:id", getFoodByID);
-//route.get("/:category", getFoodByCategory);
+route.route("/").get(getAllFood).post(createFood);
+route.route("/:id").get(getFoodByID).delete(deleteFood).patch(updateFood);
 
 export default route;

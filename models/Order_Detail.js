@@ -16,6 +16,7 @@ OrderDetail.init(
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            defaultValue: 1,
             validate: {
                 isInt: true,
                 isGreaterThanZero(value) {
@@ -32,7 +33,7 @@ OrderDetail.init(
     },
     {
         sequelize,
-        modelName: "order_Detail",
+        modelName: "order_detail",
     }
 );
 
