@@ -6,10 +6,19 @@ import {
     updateFood,
     deleteFood,
 } from "../controllers/foodController.js";
+import {isAdmin, verifyUser} from "../middlewares/auth.js";
 
 const route = express.Router();
 
-route.route("/").get(getAllFood).post(createFood);
-route.route("/:id").get(getFoodByID).delete(deleteFood).patch(updateFood);
+route.get("/", getAllFood);
+
+route.get("/:id", getFoodByID);
+
+route.post("/admin", verifyUser, isAdmin, createFood);
+
+route
+    .route("/admin/:id")
+    .delete(verifyUser, isAdmin, deleteFood)
+    .patch(verifyUser, isAdmin, updateFood);
 
 export default route;

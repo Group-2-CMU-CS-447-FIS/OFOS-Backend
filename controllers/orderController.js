@@ -45,23 +45,16 @@ const createOrder = asyncHandler(async (req, res) => {
         phone,
     });
 
-    if (Array.isArray(foodItem)) {
-        foodItem.map(async (i) => {
-            await OrderDetail.create({
-                orderId: order.id,
-                foodId: i.id,
-                quantity: i.quantity,
-                note: i.note,
-            });
-        });
-    } else {
+    const foodItems = Array.isArray(foodItem) ? foodItem : [foodItem];
+
+    foodItems.map(async (i) => {
         await OrderDetail.create({
             orderId: order.id,
-            foodId: foodItem.id,
-            quantity: foodItem.quantity,
-            note: foodItem.note,
+            foodId: i.id,
+            quantity: i.quantity,
+            note: i.note,
         });
-    }
+    });
 
     res.json(order);
 });

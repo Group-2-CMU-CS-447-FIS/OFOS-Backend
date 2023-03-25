@@ -6,15 +6,19 @@ import {
     getFoodByCategory,
     updateCategory,
 } from "../controllers/categoryController.js";
+import {isAdmin, verifyUser} from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllCategories).post(createCategory);
+router.get("/", getAllCategories);
+
+router.get("/:id", getFoodByCategory);
+
+router.post("/admin", verifyUser, isAdmin, updateCategory);
 
 router
-    .route("/:id")
-    .patch(updateCategory)
-    .delete(deleteCategory)
-    .get(getFoodByCategory);
+    .route("/admin/:id")
+    .patch(verifyUser, isAdmin, updateCategory)
+    .delete(verifyUser, isAdmin, deleteCategory);
 
 export default router;

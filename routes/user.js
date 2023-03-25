@@ -6,16 +6,25 @@ import {
     login,
     register,
     updateUserProfile,
+    updateUser,
 } from "../controllers/userController.js";
+import {isAdmin, verifyUser} from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.route("/").post(register).get(getAllUsers);
+router.post("/", register);
+
 router
     .route("/:id")
-    .get(getUserProfile)
-    .patch(updateUserProfile)
-    .delete(deleteUser);
+    .get(verifyUser, getUserProfile)
+    .patch(verifyUser, updateUserProfile);
+
 router.post("/login", login);
+
+router.get("/admin", verifyUser, isAdmin, getAllUsers);
+router
+    .route("/admin/:id")
+    .delete(verifyUser, isAdmin, deleteUser)
+    .patch(verifyUser, isAdmin, updateUser);
 
 export default router;
