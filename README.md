@@ -79,6 +79,19 @@ to start the server.
 > **Note:**
 > (\*) Update order khi user thanh toan' online
 
+#### Upload
+
+| Route        | HTTP | Description                       |
+| ------------ | ---- | --------------------------------- |
+| /api/uploads | POST | Upload food's image to the server |
+
+#### Payment
+
+| Route        | HTTP | Description                  |
+| ------------ | ---- | ---------------------------- |
+| /api/payment | GET  | Get Stripe public api key    |
+| /api/payment | POST | Proceed to pay for the order |
+
 ### Import Data
 
 ```

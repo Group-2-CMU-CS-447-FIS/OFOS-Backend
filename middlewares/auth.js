@@ -5,9 +5,10 @@ import User from "../models/User.js";
 const verifyUser = asyncHandler(async (req, res, next) => {
     if (
         req.headers.authorization &&
-        req.headers.authorization.startsWith("BEARER")
+        req.headers.authorization.startsWith("Bearer")
     ) {
-        const token = req.headers.authorization.split(" ")[0];
+        console.log(req.headers.authorization);
+        const token = req.headers.authorization.split(" ")[1];
         const decode = jwt.verify(token, process.env.PRIVATE_KEY);
 
         if (!token) {
@@ -23,7 +24,7 @@ const verifyUser = asyncHandler(async (req, res, next) => {
             next();
         } else {
             res.status(401);
-            throw new Error("Please login first!!");
+            throw new Error("User not found!!");
         }
     } else {
         res.status(401);

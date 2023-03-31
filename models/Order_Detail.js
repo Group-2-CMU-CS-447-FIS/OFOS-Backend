@@ -30,10 +30,10 @@ OrderDetail.init(
             type: DataTypes.TEXT,
             defaultValue: "",
         },
-        price: {
-            type: DataTypes.INTEGER,
-            defaultValue: 555,
-        },
+        // price: {
+        //     type: DataTypes.INTEGER,
+        //     defaultValue: 555,
+        // },
     },
     {
         sequelize,

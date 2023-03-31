@@ -9,6 +9,9 @@ import user from "./routes/user.js";
 import category from "./routes/category.js";
 import {notFound, errorHandler} from "./middlewares/error.js";
 import addRelationship from "./models/relationship/relationship.js";
+import path from "path";
+import upload from "./routes/upload.js";
+import payment from "./routes/payment.js";
 
 dotenv.config();
 
@@ -28,6 +31,12 @@ app.use("/api/food", food);
 app.use("/api/users", user);
 app.use("/api/orders", order);
 app.use("/api/category", category);
+app.use("/api/uploads", upload);
+app.use("/api/payment", payment);
+
+const __dirname = path.resolve();
+
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(notFound);
 app.use(errorHandler);
